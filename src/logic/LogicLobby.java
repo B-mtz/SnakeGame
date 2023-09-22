@@ -1,4 +1,5 @@
 package logic;
+import view.Information;
 import view.Lobby;
 
 import javax.sound.sampled.*;
@@ -7,51 +8,29 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 
 public class LogicLobby implements ActionListener {
     private Lobby lobby;
+    //constructor
     public LogicLobby(Lobby lobby){
         this.lobby = lobby;
         lobby.btnStart.addActionListener(this);
-        linkLabelAutor(lobby.lbAutor);
+        lobby.btnInfo.addActionListener(this);
         buttonStartInteraction(lobby.btnStart);
+        buttonInfotInteraction(lobby.btnInfo);
     }
 
+    //Eventos de los botones
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(lobby.btnStart)){
 
+        }else  if (e.getSource().equals(lobby.btnInfo)){
+            Information information = new Information();
         }
     }
 
-    //Se da diseño al link
-    private void linkLabelAutor(JLabel lbAutor){
-        lbAutor.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                try {
-                    // Abre el enlace en el navegador web predeterminado
-                    Desktop.getDesktop().browse(new URI("https://github.com/B-mtz"));
-                } catch (IOException | URISyntaxException ex) {
-                    ex.printStackTrace();
-                }
-            }
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                // Cambia el color del texto cuando el ratón entra
-                lbAutor.setForeground(new Color(250, 96, 2));
-            }
-            @Override
-            public void mouseExited(MouseEvent e) {
-                // Restaura el color del texto cuando el ratón sale
-                lbAutor.setForeground(new Color(202, 164, 123));
-            }
-        });
-    }
-
-    //se le da diseño interactivo al boton
+    //se le da diseño interactivo al boton start
     private void buttonStartInteraction(JButton btnStart){
         btnStart.addMouseListener(new MouseListener() {
             @Override
@@ -59,13 +38,13 @@ public class LogicLobby implements ActionListener {
                 btnStart.setCursor(new Cursor(Cursor.HAND_CURSOR));
                 btnStart.setForeground(Color.WHITE);
                 btnStart.setBackground(new Color(250, 96, 2));
-                btnStart.setFont(new Font("Century Gothic", Font.PLAIN,22));
+                btnStart.setFont(new Font("Bahnschrift", Font.PLAIN,22));
             }
             @Override
             public void mouseExited(MouseEvent e) {
                 btnStart.setForeground(new Color(250, 96, 2));
                 btnStart.setBackground(Color.WHITE);
-                btnStart.setFont(new Font("Century Gothic", Font.BOLD,20));
+                btnStart.setFont(new Font("Bahnschrift", Font.BOLD,20));
             }
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -85,11 +64,34 @@ public class LogicLobby implements ActionListener {
                 } catch (LineUnavailableException | UnsupportedAudioFileException | IOException ex) {
                     ex.printStackTrace();
                 }
-                btnStart.setFont(new Font("Century Gothic", Font.BOLD,22));
+                btnStart.setFont(new Font("Bahnschrift", Font.BOLD,22));
             }
             @Override
             public void mouseReleased(MouseEvent e) {
-                btnStart.setFont(new Font("Century Gothic", Font.PLAIN,22));
+                btnStart.setFont(new Font("Bahnschrift", Font.PLAIN,22));
+            }
+        });
+    }
+    //se le da diseño interactivo al boton info
+    private void buttonInfotInteraction(JButton btnInfo){
+        btnInfo.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                btnInfo.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+            }
+            @Override
+            public void mouseClicked(MouseEvent e) {
+            }
+            @Override
+            public void mousePressed(MouseEvent e) {
+                btnInfo.setIcon(new ImageIcon("src/images/info-pres.png"));
+            }
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                btnInfo.setIcon(new ImageIcon("src/images/information.png"));
             }
         });
     }

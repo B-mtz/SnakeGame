@@ -2,15 +2,17 @@ package view;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 
 public class Lobby extends JFrame {
     private JPanel contentPane, northPanel, centerPanel;
-    private Font font = new Font("Century Gothic", Font.BOLD,20);
+    private Font font = new Font("Bahnschrift", Font.BOLD,20);
     public Color colorBackground = new Color(240, 235, 213);
-    public JButton btnStart;
+    public JButton btnStart, btnInfo;
     public  JLabel lbAutor;
 
+    //Constructor
     public Lobby(){
         super("Bienvenido");
         this.setSize(450,600);
@@ -34,18 +36,18 @@ public class Lobby extends JFrame {
     //Se crean los componentes para el panel norte
     public void northPanelComponents(){
         //Inicializamos el panel y le damos un borde
-        northPanel = new JPanel(new BorderLayout());
+        northPanel = new JPanel(new FlowLayout(FlowLayout.LEADING));
         northPanel.setBackground(colorBackground);
         northPanel.setBorder(new EmptyBorder(5,5,5,5));
 
-        //Se crea un lb para infor del autor
-        lbAutor = new JLabel("  Autor: https://github.com/B-mtz");
-        lbAutor.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        lbAutor.setFont(new Font("Century Gothic", Font.PLAIN,12));
-        lbAutor.setForeground(new Color(202, 164, 123));
+        //Se crea un boton para mostrar información del autor
+        btnInfo = new JButton();
+        btnInfo.setBorder(null);
+        btnInfo.setIcon(new ImageIcon("src/images/information.png"));
+        btnInfo.setRolloverEnabled(false);
 
         //Se agrega el boton al panel norte
-        northPanel.add(lbAutor,BorderLayout.WEST);
+        northPanel.add(btnInfo);
     }
 
     //Se crean los componentes para el panel central
@@ -76,15 +78,16 @@ public class Lobby extends JFrame {
         btnStart.setFont(font);
         btnStart.setForeground(new Color(250, 96, 2));
         btnStart.setBackground(Color.WHITE);
+        btnStart.setBorder(new LineBorder(new Color(235, 90, 2),2,false));
         btnStart.setPreferredSize(new Dimension(200,35));
         buttonPanel.add(btnStart);
 
         //Se crea un label para el score mas alto
         JLabel lbHighestScore = new JLabel("Puntaje mas alto : 0 ");
-        lbHighestScore.setFont(new Font("Century Gothic", Font.BOLD,12));
+        lbHighestScore.setFont(new Font("Bahnschrift", Font.BOLD,13));
         lbHighestScore.setForeground(new Color(255, 154, 1));
         JLabel lbLastScore = new JLabel("Ultimo puntaje : 0 ");
-        lbLastScore.setFont(new Font("Century Gothic", Font.BOLD,12));
+        lbLastScore.setFont(new Font("Bahnschrift", Font.BOLD,13));
         lbLastScore.setForeground(new Color(255, 154, 1));
         panelScore.add(lbHighestScore, BorderLayout.WEST);
         panelScore.add(lbLastScore,BorderLayout.EAST);
