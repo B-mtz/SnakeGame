@@ -8,16 +8,16 @@ import java.awt.*;
 public class Lobby extends JFrame {
     private JPanel contentPane, northPanel, centerPanel;
     private Font font = new Font("Bahnschrift", Font.BOLD,20);
-    public Color colorBackground = new Color(240, 235, 213);
+    private Color colorBackground = new Color(240, 235, 213);
     public JButton btnStart, btnInfo;
-    public  JLabel lbAutor;
 
     //Constructor
     public Lobby(){
         super("Bienvenido");
-        this.setSize(450,600);
+        this.setSize(451,600);
         contentPane = new JPanel(new BorderLayout());
         this.setContentPane(contentPane);
+        contentPane.setBackground(colorBackground);
 
         //Se crean los componenetes en los paneles
         northPanelComponents();
@@ -37,7 +37,7 @@ public class Lobby extends JFrame {
     public void northPanelComponents(){
         //Inicializamos el panel y le damos un borde
         northPanel = new JPanel(new FlowLayout(FlowLayout.LEADING));
-        northPanel.setBackground(colorBackground);
+        northPanel.setOpaque(false);
         northPanel.setBorder(new EmptyBorder(5,5,5,5));
 
         //Se crea un boton para mostrar información del autor
@@ -54,19 +54,19 @@ public class Lobby extends JFrame {
     public void centerPanelComponents(){
         //Inicializamos el panel y le damos un borde
         centerPanel = new JPanel(new BorderLayout());
-        centerPanel.setBackground(colorBackground);
+        centerPanel.setOpaque(false);
         centerPanel.setBorder(new EmptyBorder(0,10,10,10));
 
         //Creamos subPaneles, para los componentes
         JPanel imagePanel = new JPanel();
-        imagePanel.setBackground(colorBackground);
+        imagePanel.setOpaque(false);
         imagePanel.setBorder(null);
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setBackground(colorBackground);
+        buttonPanel.setOpaque(false);
         buttonPanel.setBorder(new EmptyBorder(20,0,0,0));
         JPanel panelScore = new JPanel(new BorderLayout());
         panelScore.setBorder(new EmptyBorder(0,40,30,40));
-        panelScore.setBackground(colorBackground);
+        panelScore.setOpaque(false);
 
         //se crea un etiqueta para mostrar la imagen de portada
         JLabel lbCoverImage = new JLabel();
@@ -83,12 +83,14 @@ public class Lobby extends JFrame {
         buttonPanel.add(btnStart);
 
         //Se crea un label para el score mas alto
-        JLabel lbHighestScore = new JLabel("Puntaje mas alto : 0 ");
-        lbHighestScore.setFont(new Font("Bahnschrift", Font.BOLD,13));
+        JLabel lbHighestScore = new JLabel("0");
+        lbHighestScore.setFont(new Font("Bahnschrift", Font.BOLD,15));
         lbHighestScore.setForeground(new Color(255, 154, 1));
-        JLabel lbLastScore = new JLabel("Ultimo puntaje : 0 ");
-        lbLastScore.setFont(new Font("Bahnschrift", Font.BOLD,13));
+        lbHighestScore.setIcon(new ImageIcon("src/images/crownImage.png"));
+        JLabel lbLastScore = new JLabel("0");
+        lbLastScore.setFont(new Font("Bahnschrift", Font.BOLD,15));
         lbLastScore.setForeground(new Color(255, 154, 1));
+        lbLastScore.setIcon(new ImageIcon("src/images/appleImage.png"));
         panelScore.add(lbHighestScore, BorderLayout.WEST);
         panelScore.add(lbLastScore,BorderLayout.EAST);
 

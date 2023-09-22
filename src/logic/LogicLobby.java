@@ -1,4 +1,5 @@
 package logic;
+import view.FrameSnake;
 import view.Information;
 import view.Lobby;
 
@@ -24,7 +25,8 @@ public class LogicLobby implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(lobby.btnStart)){
-
+            FrameSnake frameSnake = new FrameSnake();
+            lobby.dispose();
         }else  if (e.getSource().equals(lobby.btnInfo)){
             Information information = new Information();
         }
