@@ -7,6 +7,7 @@ import java.util.Random;
 
 public class FrameSnake extends JFrame{
     private JPanel contentPane, northPanel, centerPanel;
+    public SnakePanel snakePanel;
     private String[] phrases = {
             "Bienvenido a Snake",
             "Controles: W, A, S, y D.",
@@ -76,7 +77,7 @@ public class FrameSnake extends JFrame{
     }
     public void centerPanelContet(){
         centerPanel = new JPanel(null);
-        SnakePanel snakePanel = new SnakePanel();
+        snakePanel = new SnakePanel();
         centerPanel.add(snakePanel);
     }
 }

@@ -25,7 +25,7 @@ public class LogicLobby implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(lobby.btnStart)){
-            FrameSnake frameSnake = new FrameSnake();
+            LogicSnakePanel logicSnakePanel = new LogicSnakePanel(new FrameSnake());
             lobby.dispose();
         }else  if (e.getSource().equals(lobby.btnInfo)){
             Information information = new Information();
