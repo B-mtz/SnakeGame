@@ -6,8 +6,8 @@ import java.util.ArrayList;
 
 public class SnakePanel extends JPanel{
     private int widht, height, squareSize;
-
     private ArrayList<int[]> snake;
+    //Constructor
     public SnakePanel(){
         this.setSize(425,500);
         this.snake = new ArrayList<>();
@@ -43,6 +43,7 @@ public class SnakePanel extends JPanel{
                 }
             }
         }
+        //Dibuja el snake sobre la cuadricula
         for (int[] coord : snake){
             graphics.setColor(Color.BLUE);
             graphics.fillRect(squareSize * coord[0],squareSize * coord[1], squareSize, squareSize);

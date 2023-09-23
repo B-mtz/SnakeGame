@@ -1,47 +1,38 @@
 package logic;
 
 import view.FrameSnake;
-import view.SnakePanel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.security.Key;
 import java.util.ArrayList;
 
 public class LogicSnakePanel extends Thread  implements KeyListener, ActionListener{
     private FrameSnake frameSnake;
     private ArrayList<int[]> snake;
-    private boolean stop = false;
-    private boolean threadStart = false;
     private int rows, columns, gameSpeed;
     private int[] nextHead;
     private Timer gameTimer;
-
     private char direction;
 
     //Constructor
     public  LogicSnakePanel(FrameSnake frameSnake){
         //Configuramos el frame del snake
         this.frameSnake = frameSnake;
-        frameSnake.setFocusable(true);
-        frameSnake.requestFocus();
         frameSnake.addKeyListener(this);
         //configuramos variables locales
         this.rows = 17;
         this.columns = 20;
-        this.snake = frameSnake.snakePanel.getSnake();
+        this.snake = new ArrayList<>();
         //inicializamos el snake en el centro
         initSnake();
-        nextHead = new int[]{9, 10};
-
-        // Configurar un temporizador para el juego (cambia el intervalo según sea necesario)
+        this.nextHead = new int[]{9, 10};
+        // Configurar un temporizador para el juego
         gameSpeed = 700;
         gameTimer = new Timer(gameSpeed,this);
-        gameTimer.start(); // Comenzar el temporizador
-
+        gameTimer.start();
         //inicializamos la dirección derecha
         direction = 'D';
     }
@@ -68,7 +59,7 @@ public class LogicSnakePanel extends Thread  implements KeyListener, ActionListe
         moveSnake();
     }
 
-    //mueve el snake segun la dirección actual
+    //Mueve el snake segun la dirección actual
     public void moveSnake(){
         //Recupera la cabeza del snkae, y dependiendo de la direción calcula la nueva cabeza
         int[] head = snake.get(0);
@@ -90,8 +81,6 @@ public class LogicSnakePanel extends Thread  implements KeyListener, ActionListe
             snake.remove(snake.size() - 1);
             // Se envía el nuevo snake para que se dibuje
             frameSnake.snakePanel.setSnake(snake);
-        } else {
-           stop = true;
         }
     }
 

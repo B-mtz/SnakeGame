@@ -7,6 +7,7 @@ import java.util.Random;
 
 public class FrameSnake extends JFrame{
     private JPanel contentPane, northPanel, centerPanel;
+    private Color colorBackground = new Color(240, 235, 213);
     public SnakePanel snakePanel;
     private String[] phrases = {
             "Bienvenido a Snake",
@@ -21,7 +22,6 @@ public class FrameSnake extends JFrame{
             "¡La serpiente está hambrienta!",
             "¡La serpiente está creciendo!",
     };
-    private Color colorBackground = new Color(240, 235, 213);
 
     //Constructor
     public FrameSnake(){
@@ -36,12 +36,15 @@ public class FrameSnake extends JFrame{
         northPanelContent();
         centerPanelContet();
 
+        //se añaden al contentPane dentro del Frame
         contentPane.add(northPanel, BorderLayout.NORTH);
         contentPane.add(centerPanel,BorderLayout.CENTER);
 
         this.setVisible(true);
         this.setResizable(true);
         this.setLocationRelativeTo(null);
+        this.setFocusable(true);
+        this.requestFocus();
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
@@ -75,6 +78,8 @@ public class FrameSnake extends JFrame{
         northPanel.add(lbPhraces,BorderLayout.CENTER);
         northPanel.add(lbLastScore,BorderLayout.EAST);
     }
+
+    //componentes del panel Central
     public void centerPanelContet(){
         centerPanel = new JPanel(null);
         snakePanel = new SnakePanel();
