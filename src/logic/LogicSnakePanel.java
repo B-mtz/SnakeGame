@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class LogicSnakePanel extends Thread  implements KeyListener, ActionListener{
     private FrameSnake frameSnake;
     private ArrayList<int[]> snake;
-    private int rows, columns, gameSpeed;
+    private int rows, columns, gameSpeed,score;
     private int[] nextHead;
     private Timer gameTimer;
     private char direction;
@@ -25,6 +25,7 @@ public class LogicSnakePanel extends Thread  implements KeyListener, ActionListe
         this.frameSnake = frameSnake;
         frameSnake.addKeyListener(this);
         //configuramos variables locales
+        this.score = 0;
         this.rows = 17;
         this.columns = 20;
         this.snake = new ArrayList<>();
@@ -91,12 +92,14 @@ public class LogicSnakePanel extends Thread  implements KeyListener, ActionListe
         }
 
         // Valida que no se excedan los límites del mapa
-        if (nextHead[0] != rows && nextHead[0] > -1 && nextHead[1] != columns && nextHead[1] > -1) {
+        if (nextHead[0] != rows && nextHead[0] > -1 && nextHead[1] != columns && nextHead[1] > -1 && collisionWithSnake()) {
             // Agrega la nueva cabeza
             snake.add(0, nextHead);
             // Elimina el último elemento de la cola siempre y cuando no haya comido una manzana
             if (applePosition[0] == nextHead[0] && applePosition[1] == nextHead[1]) {
                 applePositionRandom();
+                score++;
+                frameSnake.lbLastScore.setText(""+score);
             }else{
                 snake.remove(snake.size() - 1);
             }
@@ -107,6 +110,15 @@ public class LogicSnakePanel extends Thread  implements KeyListener, ActionListe
         }else{
             System.out.println("Your Lost");
         }
+    }
+
+    public boolean collisionWithSnake(){
+        for (int[] position : snake) {
+            if (position[0] == nextHead[0] && position[1] == nextHead[1]) {
+                return false; // Hay una colisión, retorna false inmediatamente
+            }
+        }
+        return true; // No se encontraron colisiones, retorna true
     }
 
     //inicializa el snake en el centro
