@@ -16,6 +16,7 @@ public class LogicSnakePanel extends Thread  implements KeyListener, ActionListe
     private int[] nextHead;
     private Timer gameTimer;
     private char direction;
+    private boolean correctMovement;
 
     //Constructor
     public  LogicSnakePanel(FrameSnake frameSnake){
@@ -30,27 +31,41 @@ public class LogicSnakePanel extends Thread  implements KeyListener, ActionListe
         initSnake();
         this.nextHead = new int[]{9, 10};
         // Configurar un temporizador para el juego
-        gameSpeed = 700;
+        gameSpeed = 200;
         gameTimer = new Timer(gameSpeed,this);
         gameTimer.start();
         //inicializamos la dirección derecha
-        direction = 'D';
+        direction = 'd';
+        //Valida que no se cambie la direción antes de avanzar aunque sea un celda
+        this.correctMovement = true;
     }
 
     //Captura la direccion del snake
     @Override
     public void keyTyped(KeyEvent e) {
         char keyChar = e.getKeyChar();
-        // Obtén la dirección actual del snake
+        // Obtén la dirección actual del snake y valida que la dirección no sea el opuesto
         int[] head = snake.get(0);
         if (keyChar == 'D' || keyChar == 'd') {
-            direction = 'D';
+            if (direction != 'A' && direction != 'a' && correctMovement){
+                direction = 'D';
+                correctMovement = false;
+            }
         } else if (keyChar == 'A' || keyChar == 'a') {
-            direction = 'A';
+            if (direction != 'D' && direction != 'd' && correctMovement){
+                direction = 'A';
+                correctMovement = false;
+            }
         } else if (keyChar == 'S' || keyChar == 's') {
-            direction = 'S';
+            if (direction != 'W' && direction != 'w' && correctMovement){
+                direction = 'S';
+                correctMovement = false;
+            }
         } else if (keyChar == 'W' || keyChar == 'w') {
-            direction = 'W';
+            if (direction != 'S' && direction != 's' && correctMovement){
+                direction = 'W';
+                correctMovement = false;
+            }
         }
     }
     //Ejecuta el movimeinto del snake
@@ -63,13 +78,13 @@ public class LogicSnakePanel extends Thread  implements KeyListener, ActionListe
     public void moveSnake(){
         //Recupera la cabeza del snkae, y dependiendo de la direción calcula la nueva cabeza
         int[] head = snake.get(0);
-        if (direction == 'D') {
+        if (direction == 'D' || direction == 'd') {
             nextHead = new int[]{head[0] + 1, head[1]};
-        } else if (direction == 'A') {
+        } else if (direction == 'A' || direction == 'a') {
             nextHead = new int[]{head[0] - 1, head[1]};
-        } else if (direction == 'S') {
+        } else if (direction == 'S' || direction == 's') {
             nextHead = new int[]{head[0], head[1] + 1};
-        } else if (direction == 'W') {
+        } else if (direction == 'W' || direction == 'w') {
             nextHead = new int[]{head[0], head[1] - 1};
         }
 
@@ -81,6 +96,10 @@ public class LogicSnakePanel extends Thread  implements KeyListener, ActionListe
             snake.remove(snake.size() - 1);
             // Se envía el nuevo snake para que se dibuje
             frameSnake.snakePanel.setSnake(snake);
+            // Libre las teclas
+            correctMovement = true;
+        }else{
+            System.out.println("Your Lost");
         }
     }
 
