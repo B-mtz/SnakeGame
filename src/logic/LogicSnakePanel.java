@@ -17,6 +17,7 @@ public class LogicSnakePanel extends Thread  implements KeyListener, ActionListe
     private Timer gameTimer;
     private char direction;
     private boolean correctMovement;
+    private int applePosition[];
 
     //Constructor
     public  LogicSnakePanel(FrameSnake frameSnake){
@@ -27,6 +28,7 @@ public class LogicSnakePanel extends Thread  implements KeyListener, ActionListe
         this.rows = 17;
         this.columns = 20;
         this.snake = new ArrayList<>();
+        this.applePosition = new int[2];
         //inicializamos el snake en el centro
         initSnake();
         this.nextHead = new int[]{9, 10};
@@ -92,8 +94,12 @@ public class LogicSnakePanel extends Thread  implements KeyListener, ActionListe
         if (nextHead[0] != rows && nextHead[0] > -1 && nextHead[1] != columns && nextHead[1] > -1) {
             // Agrega la nueva cabeza
             snake.add(0, nextHead);
-            // Elimina el último elemento de la cola
-            snake.remove(snake.size() - 1);
+            // Elimina el último elemento de la cola siempre y cuando no haya comido una manzana
+            if (applePosition[0] == nextHead[0] && applePosition[1] == nextHead[1]) {
+                applePositionRandom();
+            }else{
+                snake.remove(snake.size() - 1);
+            }
             // Se envía el nuevo snake para que se dibuje
             frameSnake.snakePanel.setSnake(snake);
             // Libre las teclas
@@ -112,6 +118,29 @@ public class LogicSnakePanel extends Thread  implements KeyListener, ActionListe
         snake.add(b);
         snake.add(c);
         frameSnake.snakePanel.setSnake(snake);
+        applePositionRandom();
+    }
+
+    //Genar una posicion aleatorea que sea diferente a la posicion del snake para la manzana
+    public void applePositionRandom(){
+        int x, y;
+        boolean flag = false;
+        do {
+            x = (int) (Math.random() * 17);
+            y = (int) (Math.random() * 20);
+
+            flag = false; // Reinicializa flag en cada iteración
+
+            for (int[] position : snake) {
+                if (position[0] == x && position[1] == y) {
+                    flag = true;
+                    break;
+                }
+            }
+        } while (flag);
+        applePosition[0] = x;
+        applePosition[1] = y;
+        frameSnake.snakePanel.setApplePosition(applePosition);
     }
 
     @Override
