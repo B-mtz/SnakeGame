@@ -6,7 +6,8 @@ import java.awt.*;
 import java.util.Random;
 
 public class FrameSnake extends JFrame{
-    private JPanel contentPane, northPanel, centerPanel;
+    public  JPanel contentPane;
+    private  JPanel northPanel, centerPanel;
     private Color colorBackground = new Color(240, 235, 213);
     public SnakePanel snakePanel;
     public JLabel lbLastScore,lbHighestScore;

@@ -10,6 +10,7 @@ public class Lobby extends JFrame {
     private Font font = new Font("Bahnschrift", Font.BOLD,20);
     private Color colorBackground = new Color(240, 235, 213);
     public JButton btnStart, btnInfo;
+    public JLabel lbLastScore,lbHighestScore;
 
     //Constructor
     public Lobby(){
@@ -83,13 +84,13 @@ public class Lobby extends JFrame {
         buttonPanel.add(btnStart);
 
         //Se crea un label para el score mas alto
-        JLabel lbHighestScore = new JLabel("0");
+        lbHighestScore = new JLabel("0");
         lbHighestScore.setFont(new Font("Bahnschrift", Font.BOLD,15));
-        lbHighestScore.setForeground(new Color(255, 154, 1));
+        lbHighestScore.setForeground(new Color(119, 76, 215));
         lbHighestScore.setIcon(new ImageIcon("src/images/crownImage.png"));
-        JLabel lbLastScore = new JLabel("0");
+        lbLastScore = new JLabel("0");
         lbLastScore.setFont(new Font("Bahnschrift", Font.BOLD,15));
-        lbLastScore.setForeground(new Color(255, 154, 1));
+        lbLastScore.setForeground(new Color(246, 0, 90));
         lbLastScore.setIcon(new ImageIcon("src/images/appleImage.png"));
         panelScore.add(lbHighestScore, BorderLayout.WEST);
         panelScore.add(lbLastScore,BorderLayout.EAST);

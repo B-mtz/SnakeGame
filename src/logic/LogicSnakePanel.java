@@ -1,5 +1,6 @@
 package logic;
 
+import view.EndGame;
 import view.FrameSnake;
 
 import javax.swing.*;
@@ -108,7 +109,9 @@ public class LogicSnakePanel extends Thread  implements KeyListener, ActionListe
             // Libre las teclas
             correctMovement = true;
         }else{
-            System.out.println("Your Lost");
+            gameTimer.stop();
+            EndGame endGame = new EndGame(frameSnake,score);
+            frameSnake.dispose();
         }
     }
 

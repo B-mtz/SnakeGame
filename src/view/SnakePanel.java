@@ -50,7 +50,6 @@ public class SnakePanel extends JPanel{
         //dibuja manzanas
         graphics.setColor(Color.RED);
         graphics.fillRect(squareSize * applePosition[0] ,squareSize * applePosition[1], squareSize, squareSize);
-        System.out.println("X: "+applePosition[0]+"Y: "+applePosition[1]);
 
         //Dibuja el snake sobre la cuadricula
         for (int[] coord : snake){
