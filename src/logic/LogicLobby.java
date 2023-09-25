@@ -12,6 +12,7 @@ import java.io.IOException;
 
 public class LogicLobby implements ActionListener {
     private Lobby lobby;
+
     //constructor
     public LogicLobby(Lobby lobby){
         this.lobby = lobby;

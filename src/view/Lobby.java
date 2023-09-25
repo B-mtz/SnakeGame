@@ -87,7 +87,7 @@ public class Lobby extends JFrame {
         btnStart.setPreferredSize(new Dimension(200,35));
         buttonPanel.add(btnStart);
 
-        //Se crea un label para el score mas alto
+        //Se crea un label para el score mas alto y se lee los Score del archivo
         String[] data = fileData.readFile();
         lbHighestScore = new JLabel(data[1]);
         lbHighestScore.setFont(new Font("Bahnschrift", Font.BOLD,15));

@@ -10,6 +10,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 public class Information extends JDialog {
+    //Constructor
     public Information(){
         this.setTitle("Información");
         this.setSize(300,200);
@@ -17,6 +18,7 @@ public class Information extends JDialog {
         this.setResizable(false);
         this.setModal(true);
 
+        //Panel de los componentes
         JPanel contentPane = new JPanel(new BorderLayout());
         contentPane.setBackground(new Color(233, 229, 207));
         contentPane.setBorder(new EmptyBorder(20,20,30,20));
@@ -48,6 +50,7 @@ public class Information extends JDialog {
         lbMusicAutor.setForeground(Color.DARK_GRAY);
         infoMusicPanel.add(lbMusicAutor, BorderLayout.SOUTH);
 
+        //Se añaden los componentes al panel y el panel al frame
         contentPane.add(infoAutorPanel,BorderLayout.NORTH);
         contentPane.add(infoMusicPanel, BorderLayout.CENTER);
 

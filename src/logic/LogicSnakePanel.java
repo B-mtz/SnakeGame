@@ -3,14 +3,11 @@ package logic;
 import view.EndGame;
 import view.FrameSnake;
 
-import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class LogicSnakePanel extends Thread  implements KeyListener, ActionListener{
@@ -60,8 +57,8 @@ public class LogicSnakePanel extends Thread  implements KeyListener, ActionListe
         if (keyChar == 'D' || keyChar == 'd') {
             if (direction != 'A' && correctMovement && direction != 'D'){
                 direction = 'D';
-                correctMovement = false;
-                sounds.playTurn();
+                correctMovement = false;//valida que no se cambie bruscamente la direcion
+                sounds.playTurn(); //da inicio al sonido de las vueltas
             }
         } else if (keyChar == 'A' || keyChar == 'a') {
             if (direction != 'D' && correctMovement && direction != 'A'){
@@ -83,6 +80,7 @@ public class LogicSnakePanel extends Thread  implements KeyListener, ActionListe
             }
         }
     }
+
     //Ejecuta el movimeinto del snake
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -129,6 +127,7 @@ public class LogicSnakePanel extends Thread  implements KeyListener, ActionListe
         }
     }
 
+    //Valida que el snake no choque con el mismo
     public boolean collisionWithSnake(){
         for (int[] position : snake) {
             if (position[0] == nextHead[0] && position[1] == nextHead[1]) {

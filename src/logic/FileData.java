@@ -38,10 +38,10 @@ public class FileData {
             String lastScore = bufferedReader.readLine(); // Leer la primera línea (lastScore)
             String highestScore = bufferedReader.readLine(); // Leer la segunda línea (highestScore)
 
-            // Cerrar el BufferedReader (esto también cierra el FileReader)
+            // Cerrar el BufferedReader
             bufferedReader.close();
 
-            // Ahora tienes las dos variables recuperadas
+            // guarda las variables en un array para devolverlas
             data[0] = lastScore;
             data[1] = highestScore;
         } catch (IOException e) {

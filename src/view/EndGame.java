@@ -15,16 +15,19 @@ public class EndGame extends JDialog {
     private FrameSnake frameSnake;
     private FileData fileData;
 
+    //Constructor
     public EndGame(FrameSnake parent, int score) {
-        super(parent, "Fin del juego", true); // El tercer argumento "true" hace que el diálogo sea modal
+        super(parent, "Fin del juego", true); // El tercer argumento "true" hace que el JDialog sea modal
         this.frameSnake = parent;
         this.setSize(300,200);
         this.setUndecorated(true);
 
+        //Panel contenedor del JDialog
         JPanel contentPane = new JPanel(new BorderLayout());
         contentPane.setBackground(new Color(161, 210, 85));
         contentPane.setBorder(new EmptyBorder(20, 20, 30, 20));
 
+        // Variables de mensajes
         JLabel lbMessage = new JLabel("Has perdido");
         lbMessage.setHorizontalAlignment(0);
         lbMessage.setFont(new Font("Bahnschrift", Font.BOLD, 20));
@@ -44,9 +47,11 @@ public class EndGame extends JDialog {
         resStart.setBackground(Color.WHITE);
         resStart.setBorder(new LineBorder(new Color(235, 90, 2), 2, false));
         resStart.setPreferredSize(new Dimension(200, 35));
+        //Accion del boton al ser pulsado
         resStart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                //Lee el archivo score.txt y verifica si existe un nuevo puntaje mas alto
                 fileData = new FileData();
                 String[] data = fileData.readFile();
                 if (score >= Integer.parseInt(data[1])  ){
@@ -54,13 +59,16 @@ public class EndGame extends JDialog {
                 }else{
                     fileData.writeFile(String.valueOf(score),data[1]);
                 }
+
+                //Ejecuta el lobby y cierra la ventana actual
                 Lobby lobby = new Lobby();
-                lobby.lbLastScore.setText(""+score);
                 LogicLobby logicLobby = new LogicLobby(lobby);
                 parent.dispose();
             }
         });
+        //Añade los componentes al panel contentPane
         contentPane.add(resStart, BorderLayout.SOUTH);
+
         this.setContentPane(contentPane);
         this.setLocationRelativeTo(parent);
         this.setVisible(true);

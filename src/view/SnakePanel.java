@@ -10,6 +10,7 @@ public class SnakePanel extends JPanel{
     private ArrayList<int[]> snake;
     private int[] applePosition;
     private Image appleImage;
+
     //Constructor
     public SnakePanel(){
         this.setSize(425,500);
@@ -40,10 +41,8 @@ public class SnakePanel extends JPanel{
                 }
             }
         }
-
         //dibuja manzanas
         graphics.drawImage(appleImage,squareSize * applePosition[0] ,squareSize * applePosition[1],null);
-
         //Dibuja el snake sobre la cuadricula
         for(int i = 0; i< snake.size();i++){
             if (i ==0){
@@ -55,11 +54,13 @@ public class SnakePanel extends JPanel{
         }
     }
 
+    //Recibe la nueva posición de la manzana si fue comido
     public void setApplePosition(int[] applePosition) {
         this.applePosition = applePosition;
         repaint();
     }
 
+    //recibe el nuevo Snake
     public void setSnake(ArrayList<int[]> snake) {
         this.snake = snake;
         repaint();

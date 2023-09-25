@@ -8,6 +8,7 @@ public class Sounds {
     private Clip clipSnake, clipBackground, clipTurn, clipEat, clipLoseGame;
     AudioInputStream aisBackground,aisSnake,aisTurn,aisEat,aisLoseGame;
 
+    //inicializa los archivos de sonidos para: fondo, giros,movimiento, mordida y de choque.
     public Sounds() {
         try {
             // Sonido de fondo
@@ -42,27 +43,25 @@ public class Sounds {
         }
     }
 
+    //Metodos que inician los sonidos
+
     public void playBackground() {
         clipBackground.start();
         clipSnake.start();
     }
-
     public void stopBackground() {
         clipBackground.stop();
         clipSnake.stop();
     }
 
-
     public void playTurn() {
         clipTurn.setFramePosition(0);
         clipTurn.start();
     }
-
     public void playEat() {
         clipEat.setFramePosition(0);
         clipEat.start();
     }
-
     public void playLoseGame() {
         clipLoseGame.start();
     }

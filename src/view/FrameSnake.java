@@ -44,8 +44,9 @@ public class FrameSnake extends JFrame{
         contentPane.add(northPanel, BorderLayout.NORTH);
         contentPane.add(centerPanel,BorderLayout.CENTER);
 
+        //Configuracion del frame
         this.setVisible(true);
-        this.setResizable(true);
+        this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.setFocusable(true);
         this.requestFocus();
@@ -58,6 +59,7 @@ public class FrameSnake extends JFrame{
         northPanel.setOpaque(false);
         northPanel.setBorder(new EmptyBorder(10,40,15,40));
 
+        //Lee el score y lo muestra en las etiquetas
         FileData fileData = new FileData();
         String[] data = fileData.readFile();
 
