@@ -3,11 +3,14 @@ package logic;
 import view.EndGame;
 import view.FrameSnake;
 
+import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class LogicSnakePanel extends Thread  implements KeyListener, ActionListener{
@@ -19,6 +22,7 @@ public class LogicSnakePanel extends Thread  implements KeyListener, ActionListe
     private char direction;
     private boolean correctMovement;
     private int applePosition[];
+    private Sounds sounds;
 
     //Constructor
     public  LogicSnakePanel(FrameSnake frameSnake){
@@ -42,6 +46,9 @@ public class LogicSnakePanel extends Thread  implements KeyListener, ActionListe
         direction = 'd';
         //Valida que no se cambie la direción antes de avanzar aunque sea un celda
         this.correctMovement = true;
+        //inicializa sonidos del juego
+        sounds = new Sounds();
+        sounds.playBackground();
     }
 
     //Captura la direccion del snake
@@ -51,24 +58,28 @@ public class LogicSnakePanel extends Thread  implements KeyListener, ActionListe
         // Obtén la dirección actual del snake y valida que la dirección no sea el opuesto
         int[] head = snake.get(0);
         if (keyChar == 'D' || keyChar == 'd') {
-            if (direction != 'A' && direction != 'a' && correctMovement){
+            if (direction != 'A' && correctMovement && direction != 'D'){
                 direction = 'D';
                 correctMovement = false;
+                sounds.playTurn();
             }
         } else if (keyChar == 'A' || keyChar == 'a') {
-            if (direction != 'D' && direction != 'd' && correctMovement){
+            if (direction != 'D' && correctMovement && direction != 'A'){
                 direction = 'A';
                 correctMovement = false;
+                sounds.playTurn();
             }
         } else if (keyChar == 'S' || keyChar == 's') {
-            if (direction != 'W' && direction != 'w' && correctMovement){
+            if (direction != 'W' && correctMovement && direction != 'S'){
                 direction = 'S';
                 correctMovement = false;
+                sounds.playTurn();
             }
         } else if (keyChar == 'W' || keyChar == 'w') {
-            if (direction != 'S' && direction != 's' && correctMovement){
+            if (direction != 'S' && correctMovement && direction != 'W'){
                 direction = 'W';
                 correctMovement = false;
+                sounds.playTurn();
             }
         }
     }
@@ -98,9 +109,10 @@ public class LogicSnakePanel extends Thread  implements KeyListener, ActionListe
             snake.add(0, nextHead);
             // Elimina el último elemento de la cola siempre y cuando no haya comido una manzana
             if (applePosition[0] == nextHead[0] && applePosition[1] == nextHead[1]) {
-                applePositionRandom();
                 score++;
                 frameSnake.lbLastScore.setText(""+score);
+                applePositionRandom();
+                sounds.playEat();
             }else{
                 snake.remove(snake.size() - 1);
             }
@@ -109,6 +121,8 @@ public class LogicSnakePanel extends Thread  implements KeyListener, ActionListe
             // Libre las teclas
             correctMovement = true;
         }else{
+            sounds.stopBackground();
+            sounds.playLoseGame();
             gameTimer.stop();
             EndGame endGame = new EndGame(frameSnake,score);
             frameSnake.dispose();
@@ -157,6 +171,7 @@ public class LogicSnakePanel extends Thread  implements KeyListener, ActionListe
         applePosition[1] = y;
         frameSnake.snakePanel.setApplePosition(applePosition);
     }
+
 
     @Override
     public void keyPressed(KeyEvent e) {}
