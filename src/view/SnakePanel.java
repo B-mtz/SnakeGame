@@ -1,5 +1,6 @@
 package view;
 
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -7,7 +8,8 @@ import java.util.ArrayList;
 public class SnakePanel extends JPanel{
     private int widht, height, squareSize;
     private ArrayList<int[]> snake;
-    private int applePosition[];
+    private int[] applePosition;
+    private Image appleImage;
     //Constructor
     public SnakePanel(){
         this.setSize(425,500);
@@ -16,17 +18,9 @@ public class SnakePanel extends JPanel{
         this.widht = 425;
         this.height = 500;
         this.applePosition  = new int[2];
+        appleImage = new ImageIcon("src/images/appleImage.png").getImage();
     }
 
-    public void setApplePosition(int[] applePosition) {
-        this.applePosition = applePosition;
-        repaint();
-    }
-
-    public void setSnake(ArrayList<int[]> snake) {
-        this.snake = snake;
-        repaint();
-    }
 
     @Override
     public void paint(Graphics graphics){
@@ -48,14 +42,26 @@ public class SnakePanel extends JPanel{
         }
 
         //dibuja manzanas
-        graphics.setColor(Color.RED);
-        graphics.fillRect(squareSize * applePosition[0] ,squareSize * applePosition[1], squareSize, squareSize);
+        graphics.drawImage(appleImage,squareSize * applePosition[0] ,squareSize * applePosition[1],null);
 
         //Dibuja el snake sobre la cuadricula
-        for (int[] coord : snake){
-            graphics.setColor(Color.BLUE);
-            graphics.fillRect(squareSize * coord[0],squareSize * coord[1], squareSize, squareSize);
+        for(int i = 0; i< snake.size();i++){
+            if (i ==0){
+                graphics.setColor(new Color(160, 66, 0));
+            }else{
+                graphics.setColor(new Color(255, 108, 40));
+            }
+            graphics.fillOval( squareSize * snake.get(i)[0], squareSize * snake.get(i)[1],squareSize,squareSize);
         }
+    }
 
+    public void setApplePosition(int[] applePosition) {
+        this.applePosition = applePosition;
+        repaint();
+    }
+
+    public void setSnake(ArrayList<int[]> snake) {
+        this.snake = snake;
+        repaint();
     }
 }

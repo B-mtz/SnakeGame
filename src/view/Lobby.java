@@ -1,5 +1,7 @@
 package view;
 
+import logic.FileData;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
@@ -11,6 +13,7 @@ public class Lobby extends JFrame {
     private Color colorBackground = new Color(240, 235, 213);
     public JButton btnStart, btnInfo;
     public JLabel lbLastScore,lbHighestScore;
+    private FileData fileData;
 
     //Constructor
     public Lobby(){
@@ -20,6 +23,7 @@ public class Lobby extends JFrame {
         this.setContentPane(contentPane);
         contentPane.setBackground(colorBackground);
 
+        this.fileData = new FileData();
         //Se crean los componenetes en los paneles
         northPanelComponents();
         centerPanelComponents();
@@ -84,11 +88,12 @@ public class Lobby extends JFrame {
         buttonPanel.add(btnStart);
 
         //Se crea un label para el score mas alto
-        lbHighestScore = new JLabel("0");
+        String[] data = fileData.readFile();
+        lbHighestScore = new JLabel(data[1]);
         lbHighestScore.setFont(new Font("Bahnschrift", Font.BOLD,15));
         lbHighestScore.setForeground(new Color(119, 76, 215));
         lbHighestScore.setIcon(new ImageIcon("src/images/crownImage.png"));
-        lbLastScore = new JLabel("0");
+        lbLastScore = new JLabel(data[0]);
         lbLastScore.setFont(new Font("Bahnschrift", Font.BOLD,15));
         lbLastScore.setForeground(new Color(246, 0, 90));
         lbLastScore.setIcon(new ImageIcon("src/images/appleImage.png"));

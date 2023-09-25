@@ -1,5 +1,6 @@
 package view;
 
+import logic.FileData;
 import logic.LogicLobby;
 
 import javax.swing.*;
@@ -12,6 +13,7 @@ import java.awt.event.ActionListener;
 public class EndGame extends JDialog {
     private JButton resStart;
     private FrameSnake frameSnake;
+    private FileData fileData;
 
     public EndGame(FrameSnake parent, int score) {
         super(parent, "Fin del juego", true); // El tercer argumento "true" hace que el diálogo sea modal
@@ -45,6 +47,13 @@ public class EndGame extends JDialog {
         resStart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                fileData = new FileData();
+                String[] data = fileData.readFile();
+                if (score >= Integer.parseInt(data[1])  ){
+                    fileData.writeFile(String.valueOf(score),String.valueOf(score));
+                }else{
+                    fileData.writeFile(String.valueOf(score),data[1]);
+                }
                 Lobby lobby = new Lobby();
                 lobby.lbLastScore.setText(""+score);
                 LogicLobby logicLobby = new LogicLobby(lobby);

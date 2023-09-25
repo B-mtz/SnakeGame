@@ -1,5 +1,7 @@
 package view;
 
+import logic.FileData;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -56,8 +58,11 @@ public class FrameSnake extends JFrame{
         northPanel.setOpaque(false);
         northPanel.setBorder(new EmptyBorder(10,40,15,40));
 
+        FileData fileData = new FileData();
+        String[] data = fileData.readFile();
+
         //Se crea un label para el score mas alto
-        lbHighestScore = new JLabel("0");
+        lbHighestScore = new JLabel(data[1]);
         lbHighestScore.setFont(new Font("Bahnschrift", Font.BOLD,15));
         lbHighestScore.setForeground(new Color(119, 76, 215));
         lbHighestScore.setIcon(new ImageIcon("src/images/crownImage.png"));
