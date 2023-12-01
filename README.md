@@ -1,5 +1,5 @@
 # SnakeGame
-Archivo jar : [SnakeGame](https://github.com/B-mtz/SnakeGame/SnakeGame.jar)
+_El archivo jar ejecutable se encuentra en la carpeta principal_
 ## Ejecución
 Se ejecuta el archivo Execute.java de la carpeta View
 
