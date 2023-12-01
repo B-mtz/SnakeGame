@@ -17,24 +17,24 @@ public class FrameSnake extends JFrame{
             "Bienvenido a Snake",
             "Controles: W, A, S, y D.",
             "Come manzanas para crecer.",
-            "No te toques a ti mismo.",
             "¡Cuidado! No choques.",
             "¡Has crecido!",
             "¡Supera tu mejor puntuación!",
             "¡Continúa! ¡Vas ganando!",
             "¡No te rindas! ¡Puedes hacerlo!",
             "¡La serpiente está hambrienta!",
-            "¡La serpiente está creciendo!",
     };
 
     //Constructor
     public FrameSnake(){
-        super("Start Game");
+        super("SNAKE");
         this.setSize(450,600);
         contentPane = new JPanel(new BorderLayout());
         this.setContentPane(contentPane);
         contentPane.setBackground(new Color(78, 191, 35));
         contentPane.setBorder(new EmptyBorder(5,5,10,6));
+        ImageIcon icon = new ImageIcon(Lobby.class.getResource("/images/iconImage.png"));
+        setIconImage(icon.getImage());
 
         //Se crean los componentes de los paneles
         northPanelContent();
@@ -67,13 +67,13 @@ public class FrameSnake extends JFrame{
         lbHighestScore = new JLabel(data[1]);
         lbHighestScore.setFont(new Font("Bahnschrift", Font.BOLD,15));
         lbHighestScore.setForeground(new Color(119, 76, 215));
-        lbHighestScore.setIcon(new ImageIcon("src/images/crownImage.png"));
+        lbHighestScore.setIcon(new ImageIcon(FrameSnake.class.getResource("/images/crownImage.png")));
 
         //Se crea un label para el ultimo score
         lbLastScore = new JLabel("0");
         lbLastScore.setFont(new Font("Bahnschrift", Font.BOLD,15));
         lbLastScore.setForeground(new Color(246, 0, 90));
-        lbLastScore.setIcon(new ImageIcon("src/images/appleImage.png"));
+        lbLastScore.setIcon(new ImageIcon(FrameSnake.class.getResource("/images/appleImage.png")));
 
         //Se crea un label para mostrar fraces aleatoreamente
         Random random = new Random();

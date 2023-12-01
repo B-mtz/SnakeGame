@@ -19,7 +19,7 @@ public class EndGame extends JDialog {
     public EndGame(FrameSnake parent, int score) {
         super(parent, "Fin del juego", true); // El tercer argumento "true" hace que el JDialog sea modal
         this.frameSnake = parent;
-        this.setSize(300,200);
+        this.setSize(300, 200);
         this.setUndecorated(true);
 
         //Panel contenedor del JDialog
@@ -47,17 +47,25 @@ public class EndGame extends JDialog {
         resStart.setBackground(Color.WHITE);
         resStart.setBorder(new LineBorder(new Color(235, 90, 2), 2, false));
         resStart.setPreferredSize(new Dimension(200, 35));
+
+        //Se cambia el mensaje en caso de que el jugador gane
+        if (score >= 336){
+            lbMessage.setText("Felicidades!!!");
+            lbMessage2.setText("Ganaste ;)");
+        }
+
         //Accion del boton al ser pulsado
         resStart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //Lee el archivo score.txt y verifica si existe un nuevo puntaje mas alto
+                //Lee el archivo score.txt
                 fileData = new FileData();
                 String[] data = fileData.readFile();
-                if (score >= Integer.parseInt(data[1])  ){
-                    fileData.writeFile(String.valueOf(score),String.valueOf(score));
-                }else{
-                    fileData.writeFile(String.valueOf(score),data[1]);
+                //Verifica si el puntaje actual es mas alto que el registrado para cambiarlo
+                if (score >= Integer.parseInt(data[1])) {
+                    fileData.writeFile(String.valueOf(score), String.valueOf(score));
+                } else {
+                    fileData.writeFile(String.valueOf(score), data[1]);
                 }
 
                 //Ejecuta el lobby y cierra la ventana actual

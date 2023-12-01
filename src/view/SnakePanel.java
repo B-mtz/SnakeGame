@@ -19,7 +19,7 @@ public class SnakePanel extends JPanel{
         this.widht = 425;
         this.height = 500;
         this.applePosition  = new int[2];
-        appleImage = new ImageIcon("src/images/appleImage.png").getImage();
+        appleImage = new ImageIcon(SnakePanel.class.getResource("/images/appleImage.png")).getImage();
     }
 
 

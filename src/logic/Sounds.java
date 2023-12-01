@@ -2,7 +2,11 @@ package logic;
 
 import javax.sound.sampled.*;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 public class Sounds {
     private Clip clipSnake, clipBackground, clipTurn, clipEat, clipLoseGame;
@@ -13,30 +17,35 @@ public class Sounds {
         try {
             // Sonido de fondo
             clipBackground = AudioSystem.getClip();
-            aisBackground = AudioSystem.getAudioInputStream(new File("src/sound/background.wav"));
+            URL backgSoundURL = Sounds.class.getResource("/sound/background.wav");
+            aisBackground = AudioSystem.getAudioInputStream(backgSoundURL);
             clipBackground.open(aisBackground);
             clipBackground.loop(Clip.LOOP_CONTINUOUSLY);
 
             // Moviemiento del snake
             clipSnake = AudioSystem.getClip();
-            aisSnake = AudioSystem.getAudioInputStream(new File("src/sound/snakeMovement.wav"));
+            URL snakeMovementSound = Sounds.class.getResource("/sound/snakeMovement.wav");
+            aisSnake = AudioSystem.getAudioInputStream(snakeMovementSound);
             clipSnake.open(aisSnake);
             clipSnake.loop(Clip.LOOP_CONTINUOUSLY);
 
 
             // Vueltas del snake
             clipTurn = AudioSystem.getClip();
-            aisTurn = AudioSystem.getAudioInputStream(new File("src/sound/turn.wav"));
+            URL turnSound = Sounds.class.getResource("/sound/turn.wav");
+            aisTurn = AudioSystem.getAudioInputStream(turnSound);
             clipTurn.open(aisTurn);
 
             //Mordida del snake
             clipEat = AudioSystem.getClip();
-            aisEat = AudioSystem.getAudioInputStream(new File("src/sound/eat.wav"));
+            URL eatSound = Sounds.class.getResource("/sound/eat.wav");
+            aisEat = AudioSystem.getAudioInputStream(eatSound);
             clipEat.open(aisEat);
 
             //Partida perdida
             clipLoseGame = AudioSystem.getClip();
-            aisLoseGame = AudioSystem.getAudioInputStream(new File("src/sound/loseGame.wav"));
+            URL loseGame = Sounds.class.getResource("/sound/loseGame.wav");
+            aisLoseGame = AudioSystem.getAudioInputStream(loseGame);
             clipLoseGame.open(aisLoseGame);
         } catch (LineUnavailableException | UnsupportedAudioFileException | IOException ex) {
             ex.printStackTrace();

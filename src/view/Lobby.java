@@ -17,11 +17,15 @@ public class Lobby extends JFrame {
 
     //Constructor
     public Lobby(){
-        super("Bienvenido");
+        super("Bienvenido a SNAKE");
         this.setSize(451,600);
         contentPane = new JPanel(new BorderLayout());
         this.setContentPane(contentPane);
         contentPane.setBackground(colorBackground);
+
+        //Colorcar el icono
+        ImageIcon icon = new ImageIcon(Lobby.class.getResource("/images/iconImage.png"));
+        setIconImage(icon.getImage());
 
         this.fileData = new FileData();
         //Se crean los componenetes en los paneles
@@ -48,7 +52,7 @@ public class Lobby extends JFrame {
         //Se crea un boton para mostrar información del autor
         btnInfo = new JButton();
         btnInfo.setBorder(null);
-        btnInfo.setIcon(new ImageIcon("src/images/information.png"));
+        btnInfo.setIcon(new ImageIcon(Lobby.class.getResource("/images/information.png")));
         btnInfo.setRolloverEnabled(false);
 
         //Se agrega el boton al panel norte
@@ -75,7 +79,7 @@ public class Lobby extends JFrame {
 
         //se crea un etiqueta para mostrar la imagen de portada
         JLabel lbCoverImage = new JLabel();
-        lbCoverImage.setIcon(new ImageIcon("src/images/coverImage.png"));
+        lbCoverImage.setIcon(new ImageIcon(Lobby.class.getResource("/images/coverImage.png")));
         imagePanel.add(lbCoverImage);
 
         //Se crean botones: jugar, puntuaciones y configuración
@@ -92,11 +96,11 @@ public class Lobby extends JFrame {
         lbHighestScore = new JLabel(data[1]);
         lbHighestScore.setFont(new Font("Bahnschrift", Font.BOLD,15));
         lbHighestScore.setForeground(new Color(119, 76, 215));
-        lbHighestScore.setIcon(new ImageIcon("src/images/crownImage.png"));
+        lbHighestScore.setIcon(new ImageIcon(Lobby.class.getResource("/images/crownImage.png")));
         lbLastScore = new JLabel(data[0]);
         lbLastScore.setFont(new Font("Bahnschrift", Font.BOLD,15));
         lbLastScore.setForeground(new Color(246, 0, 90));
-        lbLastScore.setIcon(new ImageIcon("src/images/appleImage.png"));
+        lbLastScore.setIcon(new ImageIcon(Lobby.class.getResource("/images/appleImage.png")));
         panelScore.add(lbHighestScore, BorderLayout.WEST);
         panelScore.add(lbLastScore,BorderLayout.EAST);
 

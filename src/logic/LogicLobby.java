@@ -7,12 +7,12 @@ import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 public class LogicLobby implements ActionListener {
     private Lobby lobby;
-
+    private URL clickSound;
     //constructor
     public LogicLobby(Lobby lobby){
         this.lobby = lobby;
@@ -20,6 +20,7 @@ public class LogicLobby implements ActionListener {
         lobby.btnInfo.addActionListener(this);
         buttonStartInteraction(lobby.btnStart);
         buttonInfotInteraction(lobby.btnInfo);
+        clickSound = LogicLobby.class.getResource("/sound/click.wav");
     }
 
     //Eventos de los botones
@@ -57,7 +58,7 @@ public class LogicLobby implements ActionListener {
                 //Lee un audio al presionar el boton
                 try {
                     Clip clip = AudioSystem.getClip();
-                    clip.open(AudioSystem.getAudioInputStream(new File("src/sound/click.wav")));
+                    clip.open(AudioSystem.getAudioInputStream(clickSound));
                     clip.start();
                     clip.addLineListener(event -> {
                         if (event.getType() == LineEvent.Type.STOP) {
@@ -90,11 +91,11 @@ public class LogicLobby implements ActionListener {
             }
             @Override
             public void mousePressed(MouseEvent e) {
-                btnInfo.setIcon(new ImageIcon("src/images/info-pres.png"));
+                btnInfo.setIcon(new ImageIcon(LogicLobby.class.getResource("/images/info-pres.png")));
             }
             @Override
             public void mouseReleased(MouseEvent e) {
-                btnInfo.setIcon(new ImageIcon("src/images/information.png"));
+                btnInfo.setIcon(new ImageIcon(LogicLobby.class.getResource("/images/information.png")));
             }
         });
     }

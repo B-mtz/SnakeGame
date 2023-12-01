@@ -2,52 +2,69 @@ package logic;
 
 import java.io.*;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+
 public class FileData {
-    private String nombreArchivo = "src/logic/score.txt";
-    private FileWriter fileWriter;
-    private BufferedWriter bufferedWriter;
-    public void writeFile(String lastScore,String highestScore ){
+
+    public void writeFile(String lastScore, String highestScore) {
         try {
-            // Crear un FileWriter (abrir el archivo para escritura)
-            fileWriter = new FileWriter(nombreArchivo);
+            // Obtener la ruta del escritorio del usuario
+            String desktopPath = System.getProperty("user.home") + File.separator + "Desktop";
 
-            // Crear un BufferedWriter para escribir datos de forma más eficiente
-            bufferedWriter = new BufferedWriter(fileWriter);
+            // Crear una nueva carpeta en el escritorio
+            Path folderPath = Paths.get(desktopPath, "ScoreFolder");
+            Files.createDirectories(folderPath);
 
-            // Escribir el contenido en el archivo
-            bufferedWriter.write(lastScore);
-            bufferedWriter.newLine();
-            bufferedWriter.write(highestScore);
+            // Crear el archivo score.txt dentro de la carpeta en el escritorio
+            Path filePath = folderPath.resolve("score.txt");
 
-            // Cerrar el BufferedWriter (esto también cierra el FileWriter)
-            bufferedWriter.close();
+            try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(filePath.toFile()))) {
+                // Escribir el contenido en el archivo
+                bufferedWriter.write(lastScore);
+                bufferedWriter.newLine();
+                bufferedWriter.write(highestScore);
+            }
+
+            // Imprimir la ruta del archivo creado
+            System.out.println("Archivo creado en: " + filePath);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
     public String[] readFile() {
         String[] data = new String[2];
         try {
-            // Crear un FileReader (abrir el archivo para lectura)
-            FileReader fileReader = new FileReader(nombreArchivo);
+            // Obtener la ruta del escritorio del usuario
+            String desktopPath = System.getProperty("user.home") + File.separator + "Desktop";
 
-            // Crear un BufferedReader para leer datos de forma más eficiente
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            // Obtener la ruta del archivo score.txt en la carpeta en el escritorio
+            Path filePath = Paths.get(desktopPath, "ScoreFolder", "score.txt");
 
-            String lastScore = bufferedReader.readLine(); // Leer la primera línea (lastScore)
-            String highestScore = bufferedReader.readLine(); // Leer la segunda línea (highestScore)
+            // Verificar si el archivo existe
+            if (!Files.exists(filePath)) {
+                // Si el archivo no existe, escribe uno nuevo con valores 0
+                writeFile("0","0");
+                return data;
+            }
 
-            // Cerrar el BufferedReader
-            bufferedReader.close();
+            // Leer el archivo después de asegurarse de que existe
+            try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath.toFile()))) {
+                String lastScore = bufferedReader.readLine(); // Leer la primera línea (lastScore)
+                String highestScore = bufferedReader.readLine(); // Leer la segunda línea (highestScore)
 
-            // guarda las variables en un array para devolverlas
-            data[0] = lastScore;
-            data[1] = highestScore;
+                // Guardar las variables en un array para devolverlas
+                data[0] = lastScore != null ? lastScore : "0";
+                data[1] = highestScore != null ? highestScore : "0";
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
         return data;
     }
-
 }
