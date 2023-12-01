@@ -1,5 +1,5 @@
 # SnakeGame
-
+Archivo jar : SnakeGame.jar
 ## Ejecución
 Se ejecuta el archivo Execute.java de la carpeta View
 
